@@ -79,6 +79,7 @@ function Item({ item }: { item: Item }) {
             `type:: ${item.category}
 cover:: ${item.cover_image_url}
 ${item.author?.length ? `author:: ${item.author.map(a => `[[${a}]]`).join(', ')}\n` : ''}${item.actor?.length ? `actor:: ${item.actor.map(a => `[[${a}]]`).join(', ')}\n` : ''}year:: [[${item.pub_year||item.year}]]
+tags::
 `
           );    
         }}
@@ -112,6 +113,7 @@ function App() {
         }
         const data = await response.json();
         setItem(data.data || []);
+        console.log(data.data);
         setLoading(false);
       } catch (error) {
         console.error('从 neodb 获取数据时出错:', error);
