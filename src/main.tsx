@@ -35,26 +35,15 @@ function main() {
     zIndex: 11,
   });
 
-  const openIconName = "template-plugin-open";
+  logseq.Editor.registerSlashCommand('metadata', async () => {
+    logseq.showMainUI();
 
-  logseq.provideStyle(css`
-    .${openIconName} {
-      opacity: 0.55;
-      font-size: 20px;
-      margin-top: 4px;
-    }
-
-    .${openIconName}:hover {
-      opacity: 0.9;
-    }
-  `);
-
-  logseq.App.registerUIItem("toolbar", {
-    key: openIconName,
-    template: `
-      <div data-on-click="show" class="${openIconName}">⚙️</div>
-    `,
-  });
+    // await logseq.Editor.insertAtEditingCursor(
+    // `#+BEGIN_QUOTE
+    //     hello!
+    //  #+END_QUOTE`,
+    // );
+  })
 }
 
 logseq.ready(main).catch(console.error);

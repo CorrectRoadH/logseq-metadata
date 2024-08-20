@@ -22,3 +22,5 @@ const subscribeToUIVisible = (onChange: () => void) =>
 export const useAppVisible = () => {
   return React.useSyncExternalStore(subscribeToUIVisible, () => _visible);
 };
+
+
