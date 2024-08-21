@@ -12,6 +12,8 @@ interface LocalizedText {
 
 type ItemType = 'book' | 'music' | 'tv' | 'movie' | 'other';
 
+var matedataTemplate = logseq.settings?.template || ``
+
 interface Item {
   id: string;
   type: ItemType;
@@ -76,11 +78,12 @@ function Item({ item }: { item: Item }) {
       <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
         onClick={async () => {
           await logseq.Editor.insertAtEditingCursor(
-            `type:: ${item.category}
-cover:: ${item.cover_image_url}
-${item.author?.length ? `author:: ${item.author.map(a => `[[${a}]]`).join(', ')}\n` : ''}${item.actor?.length ? `actor:: ${item.actor.map(a => `[[${a}]]`).join(', ')}\n` : ''}year:: [[${item.pub_year||item.year}]]
-tags::
-`
+            matedataTemplate
+              .replace('$TYPE', item.category)
+              .replace('$COVER', item.cover_image_url)
+              .replace('$AUTHOR', item.author?.map(a => `[[${a}]]`).join(', ') || '')
+              .replace('$ACTOR', item.actor?.map(a => `[[${a}]]`).join(', ') || '')
+              .replace('$YEAR', item.pub_year?.toString() || item.year?.toString() || '')
           );    
         }}
       >
@@ -109,7 +112,7 @@ function App() {
       try {
         const response = await fetch(`https://neodb.social/api/catalog/search?query=${encodeURIComponent(input)}&page=1`);
         if (!response.ok) {
-          throw new Error('网络响应不正常');
+          throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setItem(data.data || []);
@@ -160,7 +163,7 @@ function App() {
             ))
           ) : (
             <div className="text-center">
-              <p>没有找到相关项目</p>
+              <p>No results found</p>
             </div>
           )}
         </div>

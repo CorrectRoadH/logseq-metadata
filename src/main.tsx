@@ -6,6 +6,7 @@ import App from "./App";
 import "./index.css";
 
 import { logseq as PL } from "../package.json";
+import { SettingSchemaDesc } from "@logseq/libs/dist/LSPlugin";
 
 // @ts-expect-error
 const css = (t, ...args) => String.raw(t, ...args);
@@ -15,6 +16,26 @@ const pluginId = PL.id;
 function main() {
   console.info(`#${pluginId}: MAIN`);
   const root = ReactDOM.createRoot(document.getElementById("app")!);
+
+  const schema:Array<SettingSchemaDesc> = [
+    {
+      key:"matedata template",
+      type:"string",
+      inputAs:"textarea",
+      default:`type:: $TYPE
+cover:: $COVER
+author:: $AUTHOR
+actor:: $ACTOR
+year:: $YEAR
+tags:: 
+`,
+      title:"template",
+      description:"insert template",
+    },
+  ];
+
+  logseq.useSettingsSchema(schema)
+
 
   root.render(
     <React.StrictMode>
@@ -37,12 +58,6 @@ function main() {
 
   logseq.Editor.registerSlashCommand('metadata', async () => {
     logseq.showMainUI();
-
-    // await logseq.Editor.insertAtEditingCursor(
-    // `#+BEGIN_QUOTE
-    //     hello!
-    //  #+END_QUOTE`,
-    // );
   })
 }
 
