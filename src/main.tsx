@@ -19,7 +19,7 @@ function main() {
 
   const schema:Array<SettingSchemaDesc> = [
     {
-      key:"matedata template",
+      key:"matedata_template",
       type:"string",
       inputAs:"textarea",
       default:`type:: $TYPE

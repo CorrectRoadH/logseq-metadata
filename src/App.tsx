@@ -12,8 +12,6 @@ interface LocalizedText {
 
 type ItemType = 'book' | 'music' | 'tv' | 'movie' | 'other';
 
-var matedataTemplate = logseq.settings?.template || ``
-
 interface Item {
   id: string;
   type: ItemType;
@@ -77,14 +75,16 @@ function Item({ item }: { item: Item }) {
       {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
       <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
         onClick={async () => {
+          const template = logseq.settings?.matedata_template || '';
+          console.log(logseq.settings)
           await logseq.Editor.insertAtEditingCursor(
-            matedataTemplate
-              .replace('$TYPE', item.category)
-              .replace('$COVER', item.cover_image_url)
+            template
+              .replace('$TYPE', item.category || '')
+              .replace('$COVER', item.cover_image_url || '')
               .replace('$AUTHOR', item.author?.map(a => `[[${a}]]`).join(', ') || '')
               .replace('$ACTOR', item.actor?.map(a => `[[${a}]]`).join(', ') || '')
               .replace('$YEAR', item.pub_year?.toString() || item.year?.toString() || '')
-          );    
+          );
         }}
       >
         Insert
