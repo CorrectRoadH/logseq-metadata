@@ -56,7 +56,7 @@ function Item({ item }: { item: Item }) {
         alt={item.display_title} 
         className="item-cover w-32 h-48 object-cover rounded"
       />
-      <div className="item-details flex flex-col justify-between">
+      <div className="item-details flex flex-col justify-between flex-grow">
         <h2 className="text-xl font-bold">{item.display_title}</h2>
         <p className="text-lg">{item.localized_title?.find((t) => t.lang === 'zh-cn')?.text || item.title}</p>
         <p>Rating: <span className="font-semibold">{item.rating}</span> ({item.rating_count} reviews)</p>
@@ -72,23 +72,24 @@ function Item({ item }: { item: Item }) {
         </p>
         <p className="item-brief text-sm text-gray-600 mt-2">{item.brief}</p>
       </div>
-      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
-        onClick={async () => {
-          const template = logseq.settings?.matedata_template || '';
-          console.log(logseq.settings)
-          await logseq.Editor.insertAtEditingCursor(
-            template
-              .replace('$TYPE', item.category || '')
-              .replace('$COVER', item.cover_image_url || '')
-              .replace('$AUTHOR', item.author?.map(a => `[[${a}]]`).join(', ') || '')
-              .replace('$ACTOR', item.actor?.map(a => `[[${a}]]`).join(', ') || '')
-              .replace('$YEAR', item.pub_year?.toString() || item.year?.toString() || '')
-          );
-        }}
-      >
-        Insert
-      </button>
+      <div className="flex items-end ml-auto"> {/* 添加一个容器使按钮靠右 */}
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          onClick={async () => {
+            const template = logseq.settings?.matedata_template || '';
+            console.log(logseq.settings)
+            await logseq.Editor.insertAtEditingCursor(
+              template
+                .replace('$TYPE', item.category || '')
+                .replace('$COVER', item.cover_image_url || '')
+                .replace('$AUTHOR', item.author?.map(a => `[[${a}]]`).join(', ') || '')
+                .replace('$ACTOR', item.actor?.map(a => `[[${a}]]`).join(', ') || '')
+                .replace('$YEAR', item.pub_year?.toString() || item.year?.toString() || '')
+            );
+          }}
+        >
+          Insert
+        </button>
+      </div>
     </div>
   );
 }
