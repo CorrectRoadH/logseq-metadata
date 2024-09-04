@@ -1,3 +1,22 @@
+# 1.0.0 (2024-09-04)
+
+
+### Bug Fixes
+
+* button style ([d8f8a4c](https://github.com/CorrectRoadH/logseq-metadata/commit/d8f8a4cfb873eec1b8a5f78231ac46262138d6e4))
+* fix build fail ([5592904](https://github.com/CorrectRoadH/logseq-metadata/commit/5592904462305c7c5e8b21869b1405c6a40ff77a))
+* fix pnpm version wrong ([8d9542a](https://github.com/CorrectRoadH/logseq-metadata/commit/8d9542a5cadce0490908c8f085255abae5188465))
+* fix template ([984cefa](https://github.com/CorrectRoadH/logseq-metadata/commit/984cefa0c73f41d1d091e7df25c9f1d5ac004735))
+
+
+### Features
+
+* add settings ([2273a69](https://github.com/CorrectRoadH/logseq-metadata/commit/2273a694cd96f7c2b34ec01919391dea91147aa1))
+* implement the plugins ([3a4f78f](https://github.com/CorrectRoadH/logseq-metadata/commit/3a4f78fe0fc6dad9525490f4fb8aef668262b94f))
+* release ([5bbd528](https://github.com/CorrectRoadH/logseq-metadata/commit/5bbd528786e917bf20d73f78a4c7a46528eec442))
+* rename ([a735535](https://github.com/CorrectRoadH/logseq-metadata/commit/a7355359d2a9656bc78b5cc072e1acf04ea6cd52))
+* update cicd ([a05e20b](https://github.com/CorrectRoadH/logseq-metadata/commit/a05e20baf035b93b224d520eb98ab1b0bf49e445))
+
 ## [2.1.1](https://github.com/pengx17/logseq-plugin-template-react/compare/v2.1.0...v2.1.1) (2022-03-24)
 
 
