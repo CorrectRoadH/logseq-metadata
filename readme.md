@@ -2,7 +2,11 @@
 
 ## Features
 1. insert media(movie, book, music) metadata
-<video src="screenshots/use.mp4" width="500px"></video>
+
+https://github.com/user-attachments/assets/16b32f29-20b7-4908-a366-e01240647a87
 
 2. custom template
-<video src="screenshots/settings.mp4" width="500px"></video>
+
+https://github.com/user-attachments/assets/d306957d-6888-475e-8092-8f8aaaca4011
+
+
