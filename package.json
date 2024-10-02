@@ -38,6 +38,6 @@
   },
   "logseq": {
     "id": "logseq-metadata",
-    "icon": "./logo.png"
+    "icon": "./src/logo.svg"
   }
 }
