@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/CorrectRoadH/logseq-metadata/compare/v1.0.0...v1.0.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* fix missing logo ([ffb1cff](https://github.com/CorrectRoadH/logseq-metadata/commit/ffb1cffdd8c4b7dea993b7ae9824561ea0fbfeb7))
+
 # 1.0.0 (2024-09-04)
 
 
