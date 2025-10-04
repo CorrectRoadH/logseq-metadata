@@ -19,7 +19,7 @@ function main() {
 
   const schema:Array<SettingSchemaDesc> = [
     {
-      key:"matedata_template",
+      key:"metadata_template",
       type:"string",
       inputAs:"textarea",
       default:`type:: $TYPE
@@ -27,7 +27,7 @@ cover:: $COVER
 author:: $AUTHOR
 actor:: $ACTOR
 year:: $YEAR
-tags:: 
+tags::
 `,
       title:"template",
       description:"insert template",
