@@ -15,7 +15,10 @@ Search and insert metadata for movies, books, and music directly into Logseq.
 ### 2. Custom Template
 Customize the metadata template to fit your workflow.
 
-![Template Settings](https://github.com/user-attachments/assets/16b32f29-20b7-4908-a366-e01240647a87)
+<video controls width="100%">
+  <source src="https://github.com/user-attachments/assets/16b32f29-20b7-4908-a366-e01240647a87" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Usage
 
