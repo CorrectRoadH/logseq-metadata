@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/CorrectRoadH/logseq-metadata/compare/v1.0.2...v1.1.0) (2025-11-23)
+
+
+### Features
+
+* add esc to close metadata ([7afb8c9](https://github.com/CorrectRoadH/logseq-metadata/commit/7afb8c97dd6ac8b440b903ce0b4f1a9a821aa30a))
+
 ## [1.0.1](https://github.com/CorrectRoadH/logseq-metadata/compare/v1.0.0...v1.0.1) (2024-10-02)
 
 
