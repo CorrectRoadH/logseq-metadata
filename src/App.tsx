@@ -66,7 +66,7 @@ function Item({ item }: { item: Item }) {
   const imageUrl = isValidImageUrl(item.cover_image_url) ? item.cover_image_url : '';
 
   return (
-    <div className="item flex flex-row gap-4 p-4 border rounded-lg shadow-md bg-white">
+    <div className="item flex flex-row gap-4 p-4 rounded-lg shadow-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors">
       {imageUrl && (
         <img
           src={imageUrl}
@@ -91,11 +91,11 @@ function Item({ item }: { item: Item }) {
           )}
           {!item.author?.length && !item.actor?.length && 'Unknown'}
         </p>
-        <p className="item-brief text-sm text-gray-600 mt-2">{item.brief}</p>
+        <p className="item-brief text-sm text-slate-400 mt-2">{item.brief}</p>
       </div>
       <div className="flex items-end ml-auto">
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
           aria-label={`Insert metadata for ${item.display_title}`}
           onClick={async () => {
             const template = logseq.settings?.metadata_template || '';
@@ -122,7 +122,7 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   const visible = useAppVisible();
   const [input, setInput] = useState('');
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -140,6 +140,20 @@ function App() {
   }, [visible]);
 
   useEffect(() => {
+    if (visible) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          logseq.hideMainUI();
+        }
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [visible]);
+
+  useEffect(() => {
     const fetchItems = async () => {
       const sanitizedInput = sanitizeInput(input);
       if (!sanitizedInput) {
@@ -150,12 +164,16 @@ function App() {
 
       try {
         setError(null);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
         const response = await fetch(
           `https://neodb.social/api/catalog/search?query=${encodeURIComponent(sanitizedInput)}&page=1`,
           {
-            signal: AbortSignal.timeout(10000), // 10 second timeout
+            signal: controller.signal,
           }
         );
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
@@ -195,12 +213,7 @@ function App() {
         className="backdrop-filter backdrop-blur-md fixed inset-0 flex flex-col items-center"
         onClick={(e) => {
           if (!innerRef.current?.contains(e.target as Node)) {
-            window.logseq.hideMainUI();
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            window.logseq.hideMainUI();
+            logseq.hideMainUI();
           }
         }}
         tabIndex={-1}
@@ -215,7 +228,7 @@ function App() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Search for books, movies, music..."
             aria-label="Search query"
-            className="w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-64 px-4 py-2 rounded-lg border border-slate-600 bg-slate-900 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div className="flex flex-col gap-4 max-h-[calc(100vh-80px)] overflow-y-auto p-4 mt-16">
@@ -235,7 +248,7 @@ function App() {
               </button>
             </div>
           ) : loading || isPending ? (
-            <div className="text-center">
+            <div className="text-center text-white">
               <p className="animate-pulse">Loading...</p>
             </div>
           ) : item.length > 0 ? (
@@ -243,11 +256,11 @@ function App() {
               <Item key={item.id} item={item} />
             ))
           ) : input ? (
-            <div className="text-center">
+            <div className="text-center text-white">
               <p>No results found</p>
             </div>
           ) : (
-            <div className="text-center text-gray-500">
+            <div className="text-center text-slate-300">
               <p>Enter a search query to get started</p>
             </div>
           )}

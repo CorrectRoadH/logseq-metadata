@@ -1,7 +1,12 @@
 import { LSPluginUserEvents } from "@logseq/libs/dist/LSPlugin.user";
 import React from "react";
 
-let _visible = logseq.isMainUIVisible;
+let _visible = false;
+try {
+  _visible = logseq.isMainUIVisible;
+} catch (e) {
+  console.error(e);
+}
 
 function subscribeLogseqEvent<T extends LSPluginUserEvents>(
   eventName: T,
